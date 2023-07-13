@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This script provides common customization options for the ISO
-# 
+#
 # Usage: Copy this file to config.sh and make changes there.  Keep this file (default_config.sh) as-is
 #   so that subsequent changes can be easily merged from upstream.  Keep all customiations in config.sh
 
@@ -45,13 +45,25 @@ function customize_image() {
     ubuntu-gnome-desktop \
     ubuntu-gnome-wallpapers
 
+    # Needed for erlang/elixir
+    apt-get install -y \
+    build-essential \
+    git \
+    automake \
+    autoconf \
+    libncurses5-dev \
+    libssl-dev
+
     # useful tools
     apt-get install -y \
     clamav-daemon \
     terminator \
     apt-transport-https \
     curl \
-    vim \
+    neovim \
+    snapd \
+    unzip \
+    sqlite3 \
     nano \
     less
 
@@ -64,6 +76,16 @@ function customize_image() {
     gnome-sudoku \
     aisleriot \
     hitori
+
+    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
+    . "$HOME/.asdf/asdf.sh"
+    asdf plugin-add erlang
+    asdf plugin-add elixir
+    asdf install erlang 25.0.4
+    asdf install elixir 1.14.2-otp-25
+
+    dpkg -i /zebra-scanner-corescanner_*_amd64.deb
+    dpkg -i /kiosk*.deb
 }
 
 # Used to version the configuration.  If breaking changes occur, manual

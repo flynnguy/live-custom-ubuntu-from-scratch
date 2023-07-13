@@ -83,7 +83,7 @@ EOF
 
 # Load configuration values from file
 function load_config() {
-    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then 
+    if [[ -f "$SCRIPT_DIR/config.sh" ]]; then
         . "$SCRIPT_DIR/config.sh"
     elif [[ -f "$SCRIPT_DIR/default_config.sh" ]]; then
         . "$SCRIPT_DIR/default_config.sh"
@@ -116,17 +116,16 @@ function install_pkg() {
     grub-pc \
     grub-pc-bin \
     grub2-common \
+    sqlite3 \
     locales
-    
+
     case $TARGET_UBUNTU_VERSION in
         "focal" | "bionic")
-            apt-get install -y lupin-casper
             ;;
         *)
-            echo "Package lupin-casper is not needed. Skipping."
             ;;
     esac
-    
+
     # install kernel
     apt-get install -y --no-install-recommends $TARGET_KERNEL_PACKAGE
 
@@ -164,7 +163,7 @@ EOF
     apt-get clean -y
 }
 
-function finish_up() { 
+function finish_up() {
     echo "=====> finish_up"
 
     # truncate machine id (why??)
@@ -212,4 +211,3 @@ for ((ii=$start_index; ii<$end_index; ii++)); do
 done
 
 echo "$0 - Initial build is done!"
-

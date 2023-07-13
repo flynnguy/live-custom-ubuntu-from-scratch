@@ -50,6 +50,8 @@ function chroot_enter_setup() {
     sudo chroot chroot mount none -t proc /proc
     sudo chroot chroot mount none -t sysfs /sys
     sudo chroot chroot mount none -t devpts /dev/pts
+    sudo cp -u kiosk*.deb chroot/
+    sudo cp -u zebra-scanner-corescanner_*_amd64.deb chroot/
 }
 
 function chroot_exit_teardown() {
